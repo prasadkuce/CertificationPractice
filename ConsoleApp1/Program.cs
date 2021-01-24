@@ -19,28 +19,34 @@ namespace ConsoleApp1
     public class BST
     {
         public Node Root { get; set; }
+        public int Count { get; set; }
         public BST()
         {
             Root = null;
+            Count = 0;
         }
         public void Insert(Node newNode)
         {
             Node current;
             if (Root == null)
+            {
                 Root = newNode;
+                Count++;
+            }
             else
             {
                 current = Root;
                 Node parent;
-                while(true)
+                while (true)
                 {
                     parent = current;
-                    if(current.Value > newNode.Value)
+                    if (current.Value > newNode.Value)
                     {
                         current = current.Left;
                         if (current == null)
                         {
                             parent.Left = newNode;
+                            Count++;
                             break;
                         }
                     }
@@ -50,6 +56,7 @@ namespace ConsoleApp1
                         if (current == null)
                         {
                             parent.Right = newNode;
+                            Count++;
                             break;
                         }
                     }
@@ -98,11 +105,15 @@ namespace ConsoleApp1
             del(2, 2);
 
             BST tree = new BST();
-            tree.Insert(new Node(10));
-            tree.Insert(new Node(8));
-            tree.Insert(new Node(9));
-            tree.Insert(new Node(12));
-            tree.Insert(new Node(11));
+            //tree.Insert(new Node(10));
+            //tree.Insert(new Node(8));
+            //tree.Insert(new Node(9));
+            //tree.Insert(new Node(12));
+            //tree.Insert(new Node(11));
+            Random rand = new Random(1);
+            for (int i = 0; i < 20; i++)
+            //    Console.WriteLine(rand.Next(1, 30));
+                tree.Insert(new Node(rand.Next(1, 300)));
 
             tree.PreOrder(tree.Root);
             Console.WriteLine();
@@ -110,6 +121,7 @@ namespace ConsoleApp1
             Console.WriteLine();
             tree.PostOrder(tree.Root);
             Console.WriteLine();
+            Console.WriteLine(tree.Count);            
 
             Console.ReadKey();
         }
